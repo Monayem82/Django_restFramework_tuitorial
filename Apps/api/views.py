@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
-from rest_framework import mixins,generics
+from rest_framework import mixins,generics,viewsets
 
 from Apps.students.models import StudentModel
 from Apps.employees.models import EmployeesModel
@@ -137,12 +137,18 @@ def studentDetailsViews(request,pk):
 
 # Generics APIView 
 
-class EmployeesClassView(generics.ListCreateAPIView):
-    queryset=EmployeesModel.objects.all()
-    serializer_class=EmployeesSerializer
+# class EmployeesClassView(generics.ListCreateAPIView):
+#     queryset=EmployeesModel.objects.all()
+#     serializer_class=EmployeesSerializer
 
 
-class EmployeesDetailsClassView(generics.RetrieveUpdateDestroyAPIView):
+# class EmployeesDetailsClassView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset=EmployeesModel.objects.all()
+#     serializer_class=EmployeesSerializer
+#     lookup_field='pk'
+
+# ViewSets in API
+
+class StudentViewSetsView(viewsets.ModelViewSet):
     queryset=EmployeesModel.objects.all()
     serializer_class=EmployeesSerializer
-    lookup_field='pk'
