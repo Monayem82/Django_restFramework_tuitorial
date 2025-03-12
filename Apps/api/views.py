@@ -63,46 +63,86 @@ def studentDetailsViews(request,pk):
 
 #Class Based Views
 
-class EmployeesClassView(APIView):
-    def get(self,request): #member functon
-        employee=EmployeesModel.objects.all()
-        serializer=EmployeesSerializer(employee, many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+# class EmployeesClassView(APIView):
+#     def get(self,request): #member functon
+#         employee=EmployeesModel.objects.all()
+#         serializer=EmployeesSerializer(employee, many=True)
+#         return Response(serializer.data,status=status.HTTP_200_OK)
     
-    def post(self,request):
-        serializer=EmployeesSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+#     def post(self,request):
+#         serializer=EmployeesSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data,status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
         
 
-class EmployeesDetailsClassView(APIView):
-    def get_object(self,pk):
-        try:
-            employee=EmployeesModel.objects.get(pk=pk)
-            return employee
-        except EmployeesModel.DoesNotExist:
-            raise Http404
+# class EmployeesDetailsClassView(APIView):
+#     def get_object(self,pk):
+#         try:
+#             employee=EmployeesModel.objects.get(pk=pk)
+#             return employee
+#         except EmployeesModel.DoesNotExist:
+#             raise Http404
     
-    def get(self,request,pk):
-        employee=self.get_object(pk)
-        serializer=EmployeesSerializer(employee)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+#     def get(self,request,pk):
+#         employee=self.get_object(pk)
+#         serializer=EmployeesSerializer(employee)
+#         return Response(serializer.data,status=status.HTTP_200_OK)
     
-    def put(self,request,pk):
-        emplooyee=self.get_object(pk)
-        serializer=EmployeesSerializer(emplooyee,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+#     def put(self,request,pk):
+#         emplooyee=self.get_object(pk)
+#         serializer=EmployeesSerializer(emplooyee,data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data,status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
     
-    def delete(self,request,pk):
-        employee=self.get_object(pk)
-        employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+#     def delete(self,request,pk):
+#         employee=self.get_object(pk)
+#         employee.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
-        
+
+# Mixins based API
+
+# class EmployeesClassView(mixins.ListModelMixin,mixins.CreateModelMixin,generics.GenericAPIView):
+#     queryset =EmployeesModel.objects.all()
+#     serializer_class=EmployeesSerializer
+
+#     def get(self,request):
+#         return self.list(request)
+    
+#     def post(self,request):
+#         return self.create(request)
+    
+
+
+# class EmployeesDetailsClassView(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin,generics.GenericAPIView):
+#     queryset=EmployeesModel.objects.all()
+#     serializer_class=EmployeesSerializer
+
+#     def get(self,request,pk):
+#         return self.retrieve(request,pk)
+    
+#     def put(self,request,pk):
+#         return self.update(request,pk)
+    
+#     def delete(self,request,pk):
+#         return self.destroy(request,pk)
+    
+
+
+# Generics APIView 
+
+class EmployeesClassView(generics.ListCreateAPIView):
+    queryset=EmployeesModel.objects.all()
+    serializer_class=EmployeesSerializer
+
+
+class EmployeesDetailsClassView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=EmployeesModel.objects.all()
+    serializer_class=EmployeesSerializer
+    lookup_field='pk'
