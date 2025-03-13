@@ -26,6 +26,7 @@ urlpatterns = [
     #Web applications Endpoint
     path('students/',include('students.urls')),
     path('employees/',include('employees.urls')),
+    path('blogs/',include('blogs.urls')),
 
     # API Endpoint
     path('api/v1/',include('api.urls')),
