@@ -6,6 +6,8 @@ from rest_framework.routers import DefaultRouter
 
 router=DefaultRouter()
 router.register(r'employees',views.EmployeeViewSetsView)
+router.register(r'blogs',views.blogModelViewSets)
+router.register(r'comments',views.CommentModelViewSets)
 
 
 urlpatterns = [
@@ -23,8 +25,18 @@ urlpatterns = [
 
     # Blog APSS
 
-    path('blogs/',views.BlogAPIViewSets.as_view()),
-    path('blogs/<int:pk>',views.BlogDeteilsViewsets.as_view()),
-    path('comments/',views.CommentAPIViewSets.as_view())
+    # path('blogs/',views.BlogAPIViewSets.as_view()),
+    # path('blogs/<int:pk>',views.BlogDeteilsViewsets.as_view()),
+    # path('comments/',views.CommentAPIViewSets.as_view()),
+
+
+    # ModelViewSet
+
+    #Blog serializer
+    path('',include(router.urls)),
+
+    #comment serializer
+    path('',include(router.urls))
+
 ]
 
