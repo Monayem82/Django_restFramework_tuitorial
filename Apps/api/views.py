@@ -11,6 +11,9 @@ from rest_framework import mixins,generics,viewsets
 from Apps.students.models import StudentModel
 from Apps.employees.models import EmployeesModel
 
+from Apps.blogs.models import Blog,Comment
+from Apps.blogs.serializers import CommentSerializer,BlogSerializer
+
 
 # def studentsView(request):
 #     students=StudentModel.objects.all() # As a Queryset (dictionary)
@@ -149,6 +152,23 @@ def studentDetailsViews(request,pk):
 
 # ViewSets in API
 
-class StudentViewSetsView(viewsets.ModelViewSet):
+class EmployeeViewSetsView(viewsets.ModelViewSet):
     queryset=EmployeesModel.objects.all()
     serializer_class=EmployeesSerializer
+
+
+#---------Blog Apps Api ---------
+
+class BlogAPIViewSets(generics.ListCreateAPIView):
+    queryset=Blog.objects.all()
+    serializer_class=BlogSerializer
+
+class BlogDeteilsViewsets(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Blog.objects.all()
+    serializer_class=BlogSerializer
+    lookup_field="pk"
+
+
+class CommentAPIViewSets(generics.ListCreateAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=CommentSerializer
