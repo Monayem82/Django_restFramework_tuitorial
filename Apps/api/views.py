@@ -159,28 +159,28 @@ class EmployeeViewSetsView(viewsets.ModelViewSet):
 
 #---------Blog Apps Api ---------
 
-# class BlogAPIViewSets(generics.ListCreateAPIView):
-#     queryset=Blog.objects.all()
-#     serializer_class=BlogSerializer
-
-# class BlogDeteilsViewsets(generics.RetrieveUpdateDestroyAPIView):
-#     queryset=Blog.objects.all()
-#     serializer_class=BlogSerializer
-#     lookup_field="pk"
-
-
-# class CommentAPIViewSets(generics.ListCreateAPIView):
-#     queryset=Comment.objects.all()
-#     serializer_class=CommentSerializer
-
-# also use RetrieveUpdateDestroyAPIView in GET, Update , Destroy
-
-#--------- Blog api with model Viewsets------------------------
-
-class blogModelViewSets(viewsets.ModelViewSet):
+class BlogAPIViewSets(generics.ListCreateAPIView):
     queryset=Blog.objects.all()
     serializer_class=BlogSerializer
 
-class CommentModelViewSets(viewsets.ModelViewSet):
+class BlogDeteilsViewsets(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Blog.objects.all()
+    serializer_class=BlogSerializer
+    lookup_field="pk"
+
+
+class CommentAPIViewSets(generics.ListCreateAPIView):
     queryset=Comment.objects.all()
     serializer_class=CommentSerializer
+
+# also use RetrieveUpdateDestroyAPIView in GET, Update , Destroy
+
+#--------- Blog api with modelViewsets------------------------
+
+# class blogModelViewSets(viewsets.ModelViewSet):
+#     queryset=Blog.objects.all()
+#     serializer_class=BlogSerializer
+
+# class CommentModelViewSets(viewsets.ModelViewSet):
+#     queryset=Comment.objects.all()
+#     serializer_class=CommentSerializer
