@@ -9,6 +9,8 @@ from rest_framework.views import APIView
 from rest_framework import mixins,generics,viewsets
 from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 
+from Apps.employees.filters import EmployeeFilter
+
 from Apps.students.models import StudentModel
 from Apps.employees.models import EmployeesModel
 
@@ -163,6 +165,7 @@ class EmployeeViewSetsView(viewsets.ModelViewSet):
     queryset=EmployeesModel.objects.all()
     serializer_class=EmployeesSerializer
     pagination_class=CustomPagination
+    filterset_class=EmployeeFilter
 
 
 #---------Blog Apps Api ---------

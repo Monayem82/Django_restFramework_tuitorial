@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'Apps.students',
     'Apps.api',
     'Apps.employees',
-    'Apps.blogs'
+    'Apps.blogs',
+    'django_filters',
 
 ]
 
@@ -146,5 +147,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 # rest framework pagination
 REST_FRAMEWORK ={
     'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE':2  # If any a single page showing an items
+    'PAGE_SIZE':2,  # If any a single page showing an items
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
