@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import mixins,generics,viewsets
+from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 
 from Apps.students.models import StudentModel
 from Apps.employees.models import EmployeesModel
@@ -21,6 +22,12 @@ from Apps.blogs.serializers import CommentSerializer,BlogSerializer
 #     values_list=list(students.values()) # QuerySet is represent in list and inner its dictionary
 #     #print(values_list)
 #     return JsonResponse(values_list,safe=False) #JsonResponse always need to dictionary. safe=False means data should be comes any format
+
+
+# Custom Paginations
+
+class CustomPagination(LimitOffsetPagination):
+    page_size=3
 
 
 # Function based views in API
@@ -155,6 +162,7 @@ def studentDetailsViews(request,pk):
 class EmployeeViewSetsView(viewsets.ModelViewSet):
     queryset=EmployeesModel.objects.all()
     serializer_class=EmployeesSerializer
+    pagination_class=CustomPagination
 
 
 #---------Blog Apps Api ---------
@@ -162,6 +170,7 @@ class EmployeeViewSetsView(viewsets.ModelViewSet):
 class BlogAPIViewSets(generics.ListCreateAPIView):
     queryset=Blog.objects.all()
     serializer_class=BlogSerializer
+    pagination_class=CustomPagination
 
 class BlogDeteilsViewsets(generics.RetrieveUpdateDestroyAPIView):
     queryset=Blog.objects.all()
