@@ -9,6 +9,9 @@ from rest_framework.views import APIView
 from rest_framework import mixins,generics,viewsets
 from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 
+from django_filters.rest_framework.filters import OrderingFilter
+from rest_framework.filters import SearchFilter,BaseFilterBackend,OrderingFilter
+
 from Apps.employees.filters import EmployeeFilter
 
 from Apps.students.models import StudentModel
@@ -174,6 +177,9 @@ class BlogAPIViewSets(generics.ListCreateAPIView):
     queryset=Blog.objects.all()
     serializer_class=BlogSerializer
     pagination_class=CustomPagination
+    filter_backends = [SearchFilter,OrderingFilter]
+    search_fields = ['blog_title', 'blog_content']
+    ordering_fields=['id']
 
 class BlogDeteilsViewsets(generics.RetrieveUpdateDestroyAPIView):
     queryset=Blog.objects.all()
