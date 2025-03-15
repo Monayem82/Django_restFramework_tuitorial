@@ -11,6 +11,7 @@ from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 
 from django_filters.rest_framework.filters import OrderingFilter
 from rest_framework.filters import SearchFilter,BaseFilterBackend,OrderingFilter
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 
 from Apps.employees.filters import EmployeeFilter
 
@@ -165,6 +166,7 @@ def studentDetailsViews(request,pk):
 # ViewSets in API
 
 class EmployeeViewSetsView(viewsets.ModelViewSet):
+    permission_classes=[IsAuthenticatedOrReadOnly]
     queryset=EmployeesModel.objects.all()
     serializer_class=EmployeesSerializer
     pagination_class=CustomPagination
@@ -174,6 +176,7 @@ class EmployeeViewSetsView(viewsets.ModelViewSet):
 #---------Blog Apps Api ---------
 
 class BlogAPIViewSets(generics.ListCreateAPIView):
+    
     queryset=Blog.objects.all()
     serializer_class=BlogSerializer
     pagination_class=CustomPagination
